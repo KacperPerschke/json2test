@@ -11,7 +11,7 @@ func main() {
 
 	scanner := bufio.NewScanner(os.Stdin)
 	for scanner.Scan() {
-		line, err := json2test(scanner.Text())
+		line, err := json2test(scanner.Bytes())
 		if err != nil {
 			panic(err)
 		}
@@ -24,9 +24,9 @@ func main() {
 	}
 }
 
-func json2test(in string) (string, error) {
+func json2test(in []byte) (string, error) {
 
-	type tRepJSON struct {
+	var parsed struct {
 		Time    string
 		Action  string
 		Package string
@@ -34,9 +34,7 @@ func json2test(in string) (string, error) {
 		Output  string
 	}
 
-	var parsed tRepJSON
-
-	err := json.Unmarshal([]byte(in), &parsed)
+	err := json.Unmarshal(in, &parsed)
 	if err != nil {
 		return ``, err
 	}
