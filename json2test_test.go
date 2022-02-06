@@ -20,7 +20,7 @@ var testCases = []testCaseT{
 	{
 		in:  `[{"Time":"…","Action":"…","Package":"…","Test":"…"}]`,
 		out: ``,
-		err: `json: cannot unmarshal array into Go value of type struct { Time string; Action string; Package string; Test string; Output string }`,
+		err: `json: cannot unmarshal array into Go value of type struct { Time *time.Time "json:\",omitempty\""; Action string; Package string "json:\",omitempty\""; Test string "json:\",omitempty\""; Elapsed *float64 "json:\",omitempty\""; Output string "json:\",omitempty\"" }`,
 	},
 	{
 		in:  `{"Time":"1989-01-04T12:00:00.575597712+01:00","Action":"run","Package":"inteligo.com.pl/srv-template-go","Test":"TestAllCases"}`,
@@ -36,7 +36,7 @@ var testCases = []testCaseT{
 	},
 }
 
-func TestCalculate(t *testing.T) {
+func TestJson2Test(t *testing.T) {
 	for _, testCase := range testCases {
 		res, err := json2test([]byte(testCase.in))
 		if err != nil {
