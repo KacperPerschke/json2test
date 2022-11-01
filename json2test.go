@@ -28,7 +28,6 @@ func main() {
 // I assume that `go tool test2json` produces JSON objects in form
 // described in https://github.com/golang/go/blob/master/src/cmd/internal/test2json/test2json.go
 func json2test(in []byte) (string, error) {
-
 	var parsed struct {
 		Time    *time.Time `json:",omitempty"`
 		Action  string
